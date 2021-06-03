@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+   <meta content="text/html; charset=utf-8"/>
+   <title>Scorebox</title>
+</h:head>
+
+<h:body>
+   <p:tabMenu activeIndex="#{2}">
+      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home"/>
+      <p:menuitem value="Log in" outcome="/index"/>
+      <p:menuitem value="My boards" outcome="/my_boards"/>
+   </p:tabMenu>
+
+<br></br>
+<br></br>
+
+
+
+   <h:form id="adminForm">
+      <p:panelGrid columns="3" columnClasses="center">
+         <pe:timer forward="true" timeout="70" format="mm:ss"/>
+         <p:inputText value="#{hockeyController.hockeyScoreBoard.homeName}"/>
+         <h:panelGroup>
+            <p:commandButton id="minutes--1" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
+            <p:commandButton id="minutes-1" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
+            <h:outputText id="time" value="#{hockeyController.hockeyScoreBoard.minutes}:#{hockeyController.hockeyScoreBoard.seconds}">
+               <f:convertNumber type="number" minIntegerDigits="2" />
+            </h:outputText>
+            <p:commandButton id="seconds--1" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
+            <p:commandButton id="seconds-1" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
+            <p:poll interval="1" listener="#{hockeyController.getHockeyScoreBoard}" update="time"/>
+         </h:panelGroup>
+         <p:inputText value="#{hockeyController.hockeyScoreBoard.awayName}"/>
+
+
+         <h:panelGroup>
+            <h:outputText id="homeScore" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.homeScore}"/>
+            <p:commandButton id="homeScore--1" value="+" actionListener="#{hockeyController.plusOne}" update="homeScore"/>
+            <p:commandButton id="homeScore-1" value="-" actionListener="#{hockeyController.minusOne}" update="homeScore"/>
+         </h:panelGroup>
+         <h:panelGroup>
+            <h:outputText id="period" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.period}"/>
+            <p:commandButton id="period--1" value="+" actionListener="#{hockeyController.plusOne}" update="period"/>
+            <p:commandButton id="period-1" value="-" actionListener="#{hockeyController.minusOne}" update="period"/>
+         </h:panelGroup>
+         <h:panelGroup>
+            <h:outputText id="awayScore" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.awayScore}"/>
+            <p:commandButton id="awayScore--1" value="+" actionListener="#{hockeyController.plusOne}" update="awayScore"/>
+            <p:commandButton id="awayScore-1" value="-" actionListener="#{hockeyController.minusOne}" update="awayScore"/>
+         </h:panelGroup>
+      </p:panelGrid>
+
+      <br/>
+      <p:selectBooleanCheckbox value="#{hockeyController.countdownModeSelected}" itemLabel="Countdown"/><br/>
+      <br/>
+
+      <p:commandButton id="startStop" value="#{hockeyController.startStop}" styleClass="btn btn-danger" action="#{hockeyController.start}" update="startStop"/>
+      <p:commandButton value="Save" styleClass="btn btn-primary" action="#{hockeyController.saveOrUpdateBoard}"/>
+   </h:form>
+</h:body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="root@23.105.226.90:22" type="ssh/sftp">
+        <config>
+          <option name="projectRootOnTarget" value="/opt/wildfly/standalone/deployments" />
+          <option name="serverName" value="root@23.105.226.90:22 password" />
+        </config>
+        <ContributedStateBase type="MavenRuntime">
+          <config />
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

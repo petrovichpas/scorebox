@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <title>Scorebox</title>
+   <meta content="text/html; charset=utf-8"/>
+   <h:outputStylesheet name="/css/styles.css"/>
+</h:head>
+
+<h:body>
+   <h:form id="broadcastFrame">
+      <div class="score-board">
+         <header class="score-board_header">
+            <div class="score-board_title">
+               Championship
+            </div>
+         </header>
+         <div class="score-board_body">
+            <div class="score-board_team">
+               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>
+               <span>#{hockeyController.hockeyScoreBoard.homeName}</span>
+            </div>
+            <div class="score-board_score">
+               <span>#{hockeyController.hockeyScoreBoard.homeScore}</span> <span>VS</span> <span>#{hockeyController.hockeyScoreBoard.awayScore}</span>
+            </div>
+            <div class="score-board_team">
+               <span>#{hockeyController.hockeyScoreBoard.awayName}</span>
+               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>
+            </div>
+         </div>
+         <footer class="score-board_footer">
+            <div class="score-board_timer">
+               <span><h:outputText value="#{hockeyController.hockeyScoreBoard.minutes}:#{hockeyController.hockeyScoreBoard.seconds}"/></span>
+            </div>
+         </footer>
+      </div>
+      <p:poll interval="1" listener="#{hockeyController.hockeyScoreBoard.getSeconds}" update="broadcastFrame"/>
+   </h:form>
+</h:body>
+</html>
