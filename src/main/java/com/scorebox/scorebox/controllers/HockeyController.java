@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -44,6 +46,16 @@ public class HockeyController implements Serializable {
     ExecutorService executorService = Executors.newCachedThreadPool();
     ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
     private static final Logger logger = LoggerFactory.getLogger(HockeyController.class);
+
+    @Getter
+    @Setter
+    int time = 1200;
+
+    public void listener() {
+        time = (int) FacesContext.getCurrentInstance().getAttributes().get("time");
+//        time = (int) event.getComponent().getAttributes().get("time");
+        logger.info("hhhhh");
+    }
 
     @Getter
     @Setter

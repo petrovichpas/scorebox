@@ -27,7 +27,11 @@
 
    <h:form id="adminForm">
       <p:panelGrid columns="3" columnClasses="center">
-         <pe:timer forward="true" timeout="70" format="mm:ss"/>
+         <pe:timer widgetVar="timer" autoStart="false" listener="#{hockeyController.listener}" timeout="#{hockeyController.time}" format="mm:ss"/>
+         <p:commandButton value="Start" onclick="PF('timer').start()" type="button"/>
+         <p:commandButton value="Pause" onclick="PF('timer').pause()" type="button">
+            <f:attribute name="time" value="111" />
+         </p:commandButton>
          <p:inputText value="#{hockeyController.hockeyScoreBoard.homeName}"/>
          <h:panelGroup>
             <p:commandButton id="minutes--1" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
