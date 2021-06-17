@@ -23,24 +23,26 @@
          </header>
          <div class="score-board_body">
             <div class="score-board_team">
-               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>
+<!--               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>-->
                <span>#{hockeyController.hockeyScoreBoard.homeName}</span>
             </div>
             <div class="score-board_score">
-               <span>#{hockeyController.hockeyScoreBoard.homeScore}</span> <span>VS</span> <span>#{hockeyController.hockeyScoreBoard.awayScore}</span>
+               <span>#{hockeyController.hockeyScoreBoard.homeScore}</span>
+               <span>#{hockeyController.hockeyScoreBoard.period}</span>
+               <span>#{hockeyController.hockeyScoreBoard.awayScore}</span>
             </div>
             <div class="score-board_team">
                <span>#{hockeyController.hockeyScoreBoard.awayName}</span>
-               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>
+<!--               <h:graphicImage style="width: 70px" value="https://donttakefake.com/wp-content/uploads/2020/11/smile-dtf-magazine.png"/>-->
             </div>
          </div>
          <footer class="score-board_footer">
             <div class="score-board_timer">
-               <span><h:outputText value="#{hockeyController.hockeyScoreBoard.minutes}:#{hockeyController.hockeyScoreBoard.seconds}"/></span>
+               <span><h:outputText value="#{hockeyController.textFieldTime}"/></span>
             </div>
          </footer>
       </div>
-      <p:poll interval="1" listener="#{hockeyController.hockeyScoreBoard.getSeconds}" update="broadcastFrame"/>
+      <p:poll interval="1" listener="#{hockeyController.getHockeyScoreBoard}" update="broadcastFrame"/>
    </h:form>
 </h:body>
 </html>

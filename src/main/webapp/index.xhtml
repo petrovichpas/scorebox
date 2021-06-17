@@ -13,10 +13,16 @@
 </h:head>
 
 <h:body>
-   <p:tabMenu activeIndex="#{2}">
-      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home"/>
-      <p:menuitem value="Log in" outcome="/index"/>
-      <p:menuitem value="My boards" outcome="/my_boards"/>
+   <p:tabMenu activeIndex="#{param.i}">
+      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home">
+         <f:param name="i" value="0"/>
+      </p:menuitem>
+      <p:menuitem value="Log in" outcome="/index">
+         <f:param name="i" value="1"/>
+      </p:menuitem>
+      <p:menuitem value="My boards" outcome="/my_boards">
+         <f:param name="i" value="2"/>
+      </p:menuitem>
    </p:tabMenu>
 
    <h1>Это главная, сделать красоту</h1>

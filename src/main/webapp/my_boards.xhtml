@@ -14,40 +14,40 @@
 
 <h:body>
 
-   <p:tabMenu activeIndex="#{2}">
-      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home"/>
-      <p:menuitem value="Log in" outcome="/index"/>
-      <p:menuitem value="My boards" outcome="/my_boards"/>
+   <p:tabMenu activeIndex="#{param.i}">
+      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home">
+         <f:param name="i" value="0"/>
+      </p:menuitem>
+      <p:menuitem value="Log in" outcome="/index">
+         <f:param name="i" value="1"/>
+      </p:menuitem>
+      <p:menuitem value="My boards" outcome="/my_boards">
+         <f:param name="i" value="2"/>
+      </p:menuitem>
    </p:tabMenu>
 
 
    <h2>My scoreboards</h2>
 
    <p:dataTable id="my_boards" value="#{hockeyController.allBoards}" var="board">
-      <p:column>
-         <f:facet name="header">Id</f:facet>
+      <p:column headerText="Id">
          #{board.id}
       </p:column>
 
-      <p:column>
-         <f:facet name="header">Description</f:facet>
-         #{board.description}
+      <p:column headerText="Description">
+         #{board.homeName}-#{board.awayName}
       </p:column>
 
-      <p:column>
-         <f:facet name="header">Actions</f:facet>
+      <p:column headerText="Actions">
          <h:form>
-            <p:commandButton style="margin-right: 3px" styleClass="rounded-button ui-button-warning" icon="pi pi-video" action="#{hockeyController.broadcast(board)}"/>
             <p:commandButton style="margin-right: 3px" styleClass="rounded-button ui-button-warning" icon="pi pi-cog" action="#{hockeyController.openBoard(board)}"/>
-            <p:commandButton styleClass="rounded-button ui-button-danger" icon="pi pi-trash" actionListener="#{hockeyController.deleteBoard(board.id)}">
-               <f:ajax event="click" render="my_boards"/>
-            </p:commandButton>
+            <p:commandButton styleClass="rounded-button ui-button-danger" icon="pi pi-trash" actionListener="#{hockeyController.deleteBoard(board.id)}" update="my_boards"/>
          </h:form>
       </p:column>
    </p:dataTable>
 
    <h:form>
-   <p:commandButton value="Create scoreboard" styleClass="btn btn-primary" action="#{hockeyController.openBoard(null)}"/>
+      <p:commandButton value="Create scoreboard" styleClass="btn btn-primary" action="#{hockeyController.openBoard(null)}"/>
    </h:form>
 </h:body>
 </html>

@@ -16,59 +16,54 @@ public class HockeyScoreBoard {
     private Long id;
 
     @Column
-    private String homeName, awayName, description;
+    private String homeName;
 
     @Column
-    private int homeScore, awayScore, minutes, seconds;
+    private String awayName;
+
+    @Column
+    private int homeScore;
+
+    @Column
+    private int awayScore;
+
+    @Column
+    private int currentTime;
+
+    @Column
+    private int maxTime;
 
     @Column
     private int period;
 
+
 //  ----------homePenalty---------------
-    @Column
-    private String homePenaltyNumber1;
-    private String homePenaltyNumber2;
-    private String homePenaltyNumber3;
-
-    @Column(length = 1)
-    private int homePenaltyMinutes1;
-    private int homePenaltyMinutes2;
-    private int homePenaltyMinutes3;
-
-    @Column(length = 2)
-    private int homePenaltySeconds1;
-    private int homePenaltySeconds2;
-    private int homePenaltySeconds3;
+//    @Column
+//    private String homePenaltyNumber1;
+//    private String homePenaltyNumber2;
+//    private String homePenaltyNumber3;
+//
+//    @Column
+//    private int homePenaltyTime1;
+//    private int homePenaltyTime2;
+//    private int homePenaltyTime3;
 
 //  ----------awayPenalty---------------
-    @Column
-    private String awayPenaltyNumber1;
-    private String awayPenaltyNumber2;
-    private String awayPenaltyNumber3;
+//    @Column
+//    private String awayPenaltyNumber1;
+//    private String awayPenaltyNumber2;
+//    private String awayPenaltyNumber3;
+//
+//    @Column
+//    private int awayPenaltyTime1;
+//    private int awayPenaltyTime2;
+//    private int awayPenaltyTime3;
 
-    @Column(length = 1)
-    private int awayPenaltyMinutes1;
-    private int awayPenaltyMinutes2;
-    private int awayPenaltyMinutes3;
-
-    @Column(length = 2)
-    private int awayPenaltySeconds1;
-    private int awayPenaltySeconds2;
-    private int awayPenaltySeconds3;
-
-    public HockeyScoreBoard(String homeName, String awayName, String description, int minutes, int seconds) {
+    public HockeyScoreBoard(String homeName, String awayName, int currentTime, int maxTime) {
         this.homeName = homeName;
         this.awayName = awayName;
-        this.description = description;
-        this.homeScore = 0;
-        this.awayScore = 0;
-        this.minutes = minutes;
-        this.seconds = seconds;
-        this.period = 1;
-    }
-
-    public HockeyScoreBoard(String homeName, String awayName) {
-        this.homeName = homeName;
-        this.awayName = awayName;
+        this.currentTime = currentTime;
+        this.maxTime = maxTime;
+        period = 1;
     }
 }

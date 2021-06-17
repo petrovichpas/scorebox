@@ -14,61 +14,72 @@
 </h:head>
 
 <h:body>
-   <p:tabMenu activeIndex="#{2}">
-      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home"/>
-      <p:menuitem value="Log in" outcome="/index"/>
-      <p:menuitem value="My boards" outcome="/my_boards"/>
+   <p:tabMenu activeIndex="#{param.i}">
+      <p:menuitem value="Home" outcome="/index" icon="pi pi-fw pi-home">
+         <f:param name="i" value="0"/>
+      </p:menuitem>
+      <p:menuitem value="Log in" outcome="/index">
+         <f:param name="i" value="1"/>
+      </p:menuitem>
+      <p:menuitem value="My boards" outcome="/my_boards">
+         <f:param name="i" value="2"/>
+      </p:menuitem>
    </p:tabMenu>
 
 <br></br>
 <br></br>
 
-
+   <h:form>
+   <pe:timer id="timer" widgetVar="timer" autoStart="false" timeout="#{hockeyController.hockeyScoreBoard.currentTime}" format="mm:ss"/>
+   <p:commandButton value="Start" onclick="PF('timer').start()"/>
+   <p:commandButton value="Pause" actionListener="#{hockeyController.rrr}" onclick="PF('timer').pause()" update="timer"/>
+   </h:form>
 
    <h:form id="adminForm">
       <p:panelGrid columns="3" columnClasses="center">
-         <pe:timer widgetVar="timer" autoStart="false" listener="#{hockeyController.listener}" timeout="#{hockeyController.time}" format="mm:ss"/>
-         <p:commandButton value="Start" onclick="PF('timer').start()" type="button"/>
-         <p:commandButton value="Pause" onclick="PF('timer').pause()" type="button">
-            <f:attribute name="time" value="111" />
-         </p:commandButton>
          <p:inputText value="#{hockeyController.hockeyScoreBoard.homeName}"/>
          <h:panelGroup>
-            <p:commandButton id="minutes--1" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
-            <p:commandButton id="minutes-1" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
-            <h:outputText id="time" value="#{hockeyController.hockeyScoreBoard.minutes}:#{hockeyController.hockeyScoreBoard.seconds}">
-               <f:convertNumber type="number" minIntegerDigits="2" />
-            </h:outputText>
-            <p:commandButton id="seconds--1" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
-            <p:commandButton id="seconds-1" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
-            <p:poll interval="1" listener="#{hockeyController.getHockeyScoreBoard}" update="time"/>
+            <p:commandButton id="minutesPlusOne" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
+            <p:commandButton id="minutesMinusOne" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
+            <h:outputText id="time" style="font-weight: bold" value="#{hockeyController.textFieldTime}"/>
+            <p:commandButton id="secondsPlusOne" value="+" actionListener="#{hockeyController.plusOne}" update="time"/>
+            <p:commandButton id="secondsMinusOne" value="-" actionListener="#{hockeyController.minusOne}" update="time"/>
          </h:panelGroup>
          <p:inputText value="#{hockeyController.hockeyScoreBoard.awayName}"/>
 
-
          <h:panelGroup>
+            <p:commandButton id="homeScorePlusOne" value="+" actionListener="#{hockeyController.plusOne}" update="homeScore"/>
             <h:outputText id="homeScore" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.homeScore}"/>
-            <p:commandButton id="homeScore--1" value="+" actionListener="#{hockeyController.plusOne}" update="homeScore"/>
-            <p:commandButton id="homeScore-1" value="-" actionListener="#{hockeyController.minusOne}" update="homeScore"/>
+            <p:commandButton id="homeScoreMinusOne" value="-" actionListener="#{hockeyController.minusOne}" update="homeScore"/>
          </h:panelGroup>
          <h:panelGroup>
+            <p:commandButton id="periodPlusOne" value="+" actionListener="#{hockeyController.plusOne}" update="period"/>
             <h:outputText id="period" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.period}"/>
-            <p:commandButton id="period--1" value="+" actionListener="#{hockeyController.plusOne}" update="period"/>
-            <p:commandButton id="period-1" value="-" actionListener="#{hockeyController.minusOne}" update="period"/>
+            <p:commandButton id="periodMinusOne" value="-" actionListener="#{hockeyController.minusOne}" update="period"/>
          </h:panelGroup>
          <h:panelGroup>
+            <p:commandButton id="awayScorePlusOne" value="+" actionListener="#{hockeyController.plusOne}" update="awayScore"/>
             <h:outputText id="awayScore" style="font-weight: bold" value="#{hockeyController.hockeyScoreBoard.awayScore}"/>
-            <p:commandButton id="awayScore--1" value="+" actionListener="#{hockeyController.plusOne}" update="awayScore"/>
-            <p:commandButton id="awayScore-1" value="-" actionListener="#{hockeyController.minusOne}" update="awayScore"/>
+            <p:commandButton id="awayScoreMinusOne" value="-" actionListener="#{hockeyController.minusOne}" update="awayScore"/>
          </h:panelGroup>
       </p:panelGrid>
 
+      <p:poll interval="1" listener="#{hockeyController.getHockeyScoreBoard}" update="time"/>
       <br/>
-      <p:selectBooleanCheckbox value="#{hockeyController.countdownModeSelected}" itemLabel="Countdown"/><br/>
+
+      <h3>Max time period</h3>
+      <h:panelGrid columns="1" style="margin-bottom: 10px">
+         <p:spinner id="spinner1" value="#{hockeyController.hockeyScoreBoard.maxTime}" min="0" max="2000" stepFactor="60" suffix=" seconds"/>
+         <p:slider for="spinner1" minValue="0" maxValue="2000" step="60"/>
+      </h:panelGrid>
+
+      <h3>Countdown mode</h3>
+      <p:toggleSwitch value="#{hockeyController.countdownModeSelected}"/>
       <br/>
 
       <p:commandButton id="startStop" value="#{hockeyController.startStop}" styleClass="btn btn-danger" action="#{hockeyController.start}" update="startStop"/>
       <p:commandButton value="Save" styleClass="btn btn-primary" action="#{hockeyController.saveOrUpdateBoard}"/>
+      <p:button style="margin-right: 3px" styleClass="rounded-button ui-button-warning" icon="pi pi-video" onclick="window.open('#{hockeyController.broadcast(hockeyController.hockeyScoreBoard)}'); return false;"/>
    </h:form>
 </h:body>
 </html>
